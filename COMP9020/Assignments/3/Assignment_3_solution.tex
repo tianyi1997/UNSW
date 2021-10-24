@@ -1,0 +1,379 @@
+\documentclass{article} % simplest latex class that gives nice default structures.  Other classes include standalone, book
+
+% Recommended packages:
+\usepackage{listings} % used for listing code
+
+\usepackage{graphicx} % used for importing graphics
+
+
+% Suggested packages:
+\usepackage{tikz} % used for drawing figures in LaTeX directly
+\usetikzlibrary{automata,calc,arrows} % some useful default tikz packages
+
+\usepackage{enumerate} % used for finer control over enumerate lists
+
+\usepackage{algorithm} % used for specifying algorithms
+\usepackage{algpseudocode} % ditto (you need both)
+\usepackage{amsmath}
+\usepackage{fullpage} % reduces a page's margins to 1cm instead of 1in
+
+\usepackage{mathpazo} % better? fonts
+
+\usepackage{hyperref} % hyperlinks: compile with pdflatex for best results
+
+\usepackage{amssymb}
+
+
+\begin{document}
+
+\title{Assignment 3}
+\author{Tianyi Zhu} % let's keep things anonymous
+\maketitle % to actually insert the above three items
+
+\section*{Problem 1} % use section* to suppress numbering
+\subsection*{(a)}
+\begin{table}[htbp]
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        x & 0 & 0' & 1 \\ \hline
+        0 & 0 & 1  & 1 \\ \hline
+        1 & 0 & 1  & 1 \\ \hline
+        \end{tabular}
+\end{table}
+According to the truth table above, $0' = 1$.\\
+$x \wedge x = x$ has been proofed in slide. By the definition of duality, $x \vee x = x$ is proofed.\\
+\\
+\[\begin{array}{rllr}
+    x \vee 0'    &=& x \vee 1 \\
+                    &=& x \vee (x \vee x')    &\quad\mbox{(Complement)}\\
+                    &=& (x \vee x) \vee x'    &\quad\mbox{(Associativity)}\\
+                    &=& x \vee x'    &\quad\mbox{(Idempotence))}\\
+                    &=& 1   &\quad\mbox{(Complement)}
+\end{array}\]
+\\
+\[\begin{array}{rllr}
+    x' \vee 0    &=& x' \vee (x \wedge x') &\quad\mbox{(Complement)}\\
+                    &=& (x' \vee x) \wedge (x' \vee x') &\quad\mbox{(Distributivity)}\\
+                    &=& 1 \wedge (x' \vee x') &\quad\mbox{(Complement)}\\
+                    &=& 1 \wedge x'  &\quad\mbox{(Idempotence))}\\
+                    &=& x' \wedge 1  &\quad\mbox{(Commutatitivity))}\\
+                    &=& x'              &\quad\mbox{(Identity))}\\
+\end{array}\]
+\\
+\[\begin{array}{rllr}
+    (x \vee 0') \wedge (x' \vee 0) &=& 1 \wedge x' \\
+                                            &=& x'\wedge 1   &\quad\mbox{(Commutatitivity)}\\
+                                            &=& x'              &\quad\mbox{(Identity)}\\
+\end{array}\]
+
+\subsubsection*{(b)}
+\[\begin{array}{rllr}
+    (x \vee y) \wedge x   &=& (x \vee y) \wedge (x \vee 0)       &\quad\mbox{(Identity)}\\
+                                &=& (x \vee y) \wedge (x \vee (y \wedge y'))    &\quad\mbox{(Complement)}\\
+                                &=& (x \vee y) \wedge ((x \vee y) \wedge (x \vee y'))    &\quad\mbox{(Distributivity)}\\
+                                &=& ((x \vee y) \wedge (x \vee y)) \wedge (x \vee y')    &\quad\mbox{(Associativity)}\\
+                                &=& (x \vee y) \wedge (x \vee y') &\quad\mbox{(Idempotence))}\\
+                                &=& x \vee (y \wedge y')      &\quad\mbox{(Distributivity)}\\
+                                &=& x \vee 0     &\quad\mbox{(Complement)}\\
+                                &=& x   &\quad\mbox{(Identity)}\\
+\end{array}\]
+
+\subsubsection*{(c)}
+\[\begin{array}{rllr}
+    y' \vee ((x \wedge y) \vee x') &=& y' \vee (x' \vee (x \wedge y)) &\quad\mbox{(Commutatitivity)}\\
+                                            &=& y' \vee ((x' \vee x) \wedge (x' \vee y))    &\quad\mbox{(Distributivity)}\\
+                                            &=& y' \vee (1 \wedge (x' \vee y)) &\quad\mbox{(Complement)}\\
+                                            &=& y' \vee ((x' \vee y) \wedge 1) &\quad\mbox{(Commutatitivity)}\\
+                                            &=& y' \vee (x' \vee y)   &\quad\mbox{(Identity)}\\
+                                            &=& (x' \vee y) \vee y'   &\quad\mbox{(Commutatitivity)}\\
+                                            &=& x' \vee (y \vee y')   &\quad\mbox{(Associativity)}\\
+                                            &=& x' \vee 1    &\quad\mbox{(Complement)}\\
+                                            &=& x' \vee (x \vee x') &\quad\mbox{(Complement)}\\
+                                            &=& (x \vee x') \vee x' &\quad\mbox{(Commutatitivity)}\\
+                                            &=& x \vee (x' \vee x') &\quad\mbox{(Associativity)}\\
+                                            &=& x \vee x' &\quad\mbox{(Idempotence))}\\
+                                            &=& 1   &\quad\mbox{(Complement)}\\
+\end{array}\]
+\section*{Problem 2}
+\subsection*{(a)}
+\[\begin{array}{rllr}
+    ((p \wedge q)\to r) &\equiv& (\neg (p \wedge q) \vee r)   &\quad\mbox{(Implication)}\\
+                        &\equiv& (\neg\neg(\neg p \vee \neg q) \vee r)  &\quad\mbox{(De Morgan’s)}\\
+                        &\equiv& ((\neg p \vee \neg q) \vee r)  &\quad\mbox{(Double negation)}\\
+                        &\equiv& (\neg p \vee (\neg q \vee r)) &\quad\mbox{(Associativity)}\\
+                        &\equiv& (\neg p \vee (q \to r))    &\quad\mbox{(Implication)}\\
+                        &\equiv& (p \to (q \to r))  &\quad\mbox{(Implication)}\\
+\end{array}\]
+\subsection*{(b)}
+\begin{equation}
+    ((p \to q) \to r) \not\equiv (p \to (q \to r))\\
+\end{equation}
+Counterexample:
+\begin{table}[htbp]
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    $p$ & $q$ & $r$ & $((p \to q) \to r)$ & $(p \to (q \to r))$ \\ \hline
+    F   & T   & F   & F                   & T                   \\ \hline
+    \end{tabular}
+\end{table}
+\subsection*{(c)}
+By the definition of duality, $(x \wedge y) \vee x = x$ holds because $(x \vee y) \wedge x = x$ holds.\\
+\subsubsection*{LHS}
+\[\begin{array}{rllr}
+    ((p \vee (q \vee r)) \wedge (r \vee p)) &\equiv& (((q \vee r) \vee p) \wedge (r \vee p))    &\quad\mbox{(Commutatitivity)}\\
+                                            &\equiv& ((q \vee (r \vee p)) \wedge (r \vee p))    &\quad\mbox{(Associativity)}\\
+                                            &\equiv& (((r \vee p) \vee q) \wedge (r \vee p))    &\quad\mbox{(Commutatitivity)}\\
+                                            &\equiv& (r \vee p)                                 &\quad\mbox{(Absorption)}\\
+\end{array}\]
+\subsubsection*{RHS}
+\[\begin{array}{rllr}
+    ((p \wedge q) \vee (r \vee p))  &\equiv& (((\bot \vee p) \wedge q) \vee (r \vee p))   &\quad\mbox{(Identity)}\\
+                                    &\equiv& ((((r \wedge \neg r) \vee p) \wedge q) \vee (r \vee p))    &\quad\mbox{(Complement)}\\
+                                    &\equiv& (((p \vee (r \wedge \neg r)) \wedge q) \vee (r \vee p))    &\quad\mbox{(Commutatitivity)}\\
+                                    &\equiv& ((((p \vee r) \wedge (p \vee \neg r)) \wedge q) \vee (r \vee p))   &\quad\mbox{(Distributivity)}\\
+                                    &\equiv& (((p \vee r) \wedge ((p \vee \neg r) \wedge q)) \vee (r \vee p))   &\quad\mbox{(Associativity)}\\
+                                    &\equiv& (((r \vee p) \wedge ((p \vee \neg r) \wedge q)) \vee (r \vee p))   &\quad\mbox{(Commutatitivity)}\\
+                                    &\equiv& (r \vee p) &\quad\mbox{(Absorption)}\\
+
+\end{array}\]
+\subsubsection*{}
+The two formulas are logically equivalent since LHS = RHS.
+
+\section*{Problem 3}
+\subsection*{(a)}
+\[\begin{array}{lrlll}
+    (B) &dual(\top)     &=& \bot\\
+        &dual(\bot)     &=& \top\\
+        &dual(p)        &=& p           &\mbox{for all $p \in Prop$}\\
+        &dual(\neg p)   &=& \neg p      &\mbox{for all $p \in Prop$}\\
+        &dual(\neg \varphi) &=& \neg dual(\varphi)  &\mbox{for all formulas $\varphi$  which are not propositional variables}\\
+    (R) &\mbox{For all formulas $\varphi$ and $\psi$:}\\
+        &dual((\varphi \vee \psi))      &=& (dual(\varphi) \wedge dual(\psi))\\
+        &dual((\varphi \wedge \psi))    &=& (dual(\varphi) \vee dual(\psi))\\
+        &dual((\varphi \to \psi))    &=& (dual(\varphi) \to dual(\psi))\\
+        &dual((\varphi \leftrightarrow \psi))    &=& (dual(\varphi) \leftrightarrow dual(\psi))\\
+\end{array}\]
+\subsection*{(b)}
+The form of a DNF propositional formula satisfies $\underset{i}{\bigvee} a_i$, and $a_i = \underset{n}{\bigwedge} b_n$ where $b_n$ is a literal.\\
+\[\begin{array}{rll}
+    filp \circ dual(\underset{i}{\bigvee} a_i)  &=& filp(\underset{i}{\bigwedge} dual(a_i))\\
+                                                &=& filp(\underset{i}{\bigwedge} (\underset{n}{\bigvee}dual(b_n)))\\
+                                                &=& filp(\underset{i}{\bigwedge} (\underset{n}{\bigvee}b_n))\\
+                                                &=& \underset{i}{\bigwedge} (filp(\underset{n}{\bigvee}b_n))\\
+                                                &=& \underset{i}{\bigwedge} (\underset{n}{\bigvee}filp(b_n))\\
+                                                &=& \underset{i}{\bigwedge} (\underset{n}{\bigvee}(\neg b_n))\\
+\end{array}\]
+Hence the result from $filp \circ dual(\underset{i}{\bigvee} a_i)$ satisfies the form of CNF.\\
+\subsection*{(c)}
+Let $P(x)$ be the proposition that $filp \circ dual(\neg x) = x$\\
+\subsubsection*{[B]}
+\[\begin{array}{lrll}
+    P(\top):&filp\circ dual(\neg \top)   &=& filp(\neg dual(\top))\\
+                                        &&=& filp(\neg \bot)\\
+                                        &&=& \neg filp(\bot)\\
+                                        &&=& \neg \bot\\
+                                        &&=& \top\\
+    P(\bot):&filp\circ dual(\neg \bot)   &=& filp(\neg dual(\bot))\\
+                                        &&=& filp(\neg \top)\\
+                                        &&=& \neg filp(\top)\\
+                                        &&=& \neg \top\\
+                                        &&=& \bot\\
+    P(p):   &filp\circ dual(\neg p)      &=& filp(\neg p)\\
+                                        &&=& p\\
+\end{array}\]
+\subsubsection*{[I]}
+Assume $P(\varphi)$ and $P(\psi)$ hold. That is $filp \circ dual(\neg \varphi) = \varphi$ and $filp \circ dual(\neg \psi) = \psi$ .\\
+We will show $P(\neg \varphi)$ , $P((\varphi \vee \psi))$, $P((\varphi \wedge \psi))$, $P((\varphi \to \psi))$ and $P((\varphi \leftrightarrow \psi))$ hold.\\
+\[\begin{array}{lrll}
+    P(\neg \varphi):&           filp\circ dual(\neg \neg \varphi)   &=& filp(\neg dual(\neg \varphi))\\
+                                                                &   &=& filp(\neg dual(\neg \varphi))\\
+                                                                &   &=& \neg filp(dual(\neg \varphi))\\
+                                                                &   &=& \neg \varphi\\                                                           
+\\
+    P((\varphi \vee \psi)):&    filp\circ dual(\neg (\varphi \vee \psi)) &=& filp\circ dual((\neg \varphi \wedge \neg \psi))\\
+                                                                        &&=& filp(dual(\neg \varphi) \vee dual(\neg \psi)))\\
+                                                                        &&=& ((filp\circ dual(\neg \varphi)) \vee (filp\circ dual(\neg \psi)))\\
+                                                                        &&=& (\varphi \vee \psi)\\
+\\
+    P((\varphi \wedge \psi)):&  filp\circ dual(\neg (\varphi \wedge \psi)) &=& filp\circ dual((\neg \varphi \vee \neg \psi))\\
+                                                                        &&=& filp(dual(\neg \varphi) \wedge dual(\neg \psi)))\\
+                                                                        &&=& ((filp\circ dual(\neg \varphi)) \wedge (filp\circ dual(\neg \psi)))\\
+                                                                        &&=& (\varphi \wedge \psi)\\
+\\
+    P((\varphi \to \psi)):&     filp\circ dual(\neg (\varphi \to \psi)) &=& filp(\neg dual((\varphi \to \psi)))\\
+                                                                        &&=& \neg filp(dual(\varphi) \to dual(\psi))\\
+                                                                        &&=& \neg (filp \circ dual(\varphi) \to filp \circ dual(\psi))\\
+                                                                        &&=& \neg(\neg \varphi \to \neg \psi)\\
+                                                                        &&=& \neg(\psi \to \varphi)\\
+                                                                        &&=& \neg(\neg \psi \vee \varphi)\\
+                                                                        &&=& (\psi \wedge \neg \varphi)\\
+                                                                        &&=& (\neg \varphi \wedge \psi)\\
+                                                                        &&=& (\varphi \to \psi)\\
+                                                                    
+\end{array}\]
+$filp\circ dual(\neg (\varphi \leftrightarrow \psi)) = filp\circ dual(\neg((\varphi \to \psi) \wedge (\psi \to \varphi)))$, so $P((\varphi \leftrightarrow \psi))$ holds.\\
+\subsubsection*{[C]}
+Therefore $P(x)$ holds. Because $filp \circ dual(\neg \varphi) = \varphi$, so they are logically equivalent.\\
+\section*{Problem 4}
+Assume there exists a three element Boolean Algebra $\mathbb{B} = (T, \vee, \wedge, ', a, b)$ where $T =[a, b, c]$.\\
+Because both the domain and co-domain of function $'$ is $T$, $c' \in T$, if $c \in T$. So $c' = a$ or $c' = b$ or $c' = c$ holds if $\mathbb{B}$ is a Boolean Algebra.\\
+\subsection*{Assume $c' = a$}
+\[\begin{array}{rllr}
+    c \vee c'&=& c \vee a\\
+                &=& c &\quad\mbox{(Identity)}\\
+\end{array}\]
+According to the complement law $c \vee c' = b$, $c = b$. Then the number of elements in $T$ is not 3 but 2.\\
+So in this case, three elements Boolean Algebra does not exist.\\
+\subsection*{Assume $c' = b$}
+\[\begin{array}{rllr}
+    c \wedge c'  &=& c \wedge b\\
+                    &=& c &\quad\mbox{(Identity)}\\
+\end{array}\]
+According to the complement law $c \wedge c' = a$, $c = a$. Then the number of elements in $T$ is not 3 but 2.\\
+So in this case, three elements Boolean Algebra does not exist.\\
+\subsection*{Assume $c' = c$}
+\[\begin{array}{rllr}
+    c \vee c'&=& c \vee c\\
+                &=& c &\quad\mbox{(Idempotence))}\\\\
+\end{array}\]
+According to the complement law $c \vee c' = b$, $c = b$. Then the number of elements in $T$ is not 3 but 2.\\
+So in this case, three elements Boolean Algebra does not exist.\\
+\subsection*{}
+Therefore $c' \notin T$. Then there are no three elements Boolean Algebra.\\
+\section*{Problem 5}
+\subsection*{(a)}
+\subsubsection*{(i)}
+The propositional variables I need are $H1R$, $H1B$, $H2R$, $H2B$, $H3R$, $H3B$, $H4R$, $H4B$, $H5R$, $H5B$\\
+where $HnR$ represents House n is painted all red and $HnB$ represents House n is painted all blue. 
+\subsubsection*{(ii)}
+\[\begin{array}{rrl}
+    \varphi_1:&(H1R \leftrightarrow \neg H1B)&\quad\mbox{--House 1 is painted either all red or all blue}\\
+    \varphi_2:&(H2R \leftrightarrow \neg H2B)&\quad\mbox{--House 2 is painted either all red or all blue}\\
+    \varphi_3:&(H3R \leftrightarrow \neg H3B)&\quad\mbox{--House 3 is painted either all red or all blue}\\
+    \varphi_4:&(H4R \leftrightarrow \neg H4B)&\quad\mbox{--House 4 is painted either all red or all blue}\\
+    \varphi_5:&(H5R \leftrightarrow \neg H1B)&\quad\mbox{--House 5 is painted either all red or all blue}\\
+\end{array}\]
+\[\begin{array}{rrcl}
+    \varphi_5:&((H1R \wedge H5R \wedge H2R \wedge H3B \wedge H4B)&\vee&(H1B \wedge H5B \wedge H2B \wedge H3R \wedge H4R))\\
+    &&&\quad\mbox{--House 1’s neighbours are House 5 and House 2}\\
+    \varphi_7:&((H2R \wedge H1R \wedge H3R \wedge H4B \wedge H5B)&\vee&(H2B \wedge H1B \wedge H3B \wedge H4R \wedge H5R))\\
+    &&&\quad\mbox{--House 2’s neighbours are House 1 and House 3}\\
+    \varphi_8:&((H3R \wedge H2R \wedge H4R \wedge H5B \wedge H1B)&\vee&(H1B \wedge H2B \wedge H4B \wedge H5R \wedge H1R))\\
+    &&&\quad\mbox{--House 3’s neighbours are House 2 and House 4}\\
+    \varphi_9:&((H4R \wedge H3R \wedge H5R \wedge H1B \wedge H2B)&\vee&(H1B \wedge H3B \wedge H5B \wedge H1R \wedge H2R))\\
+    &&&\quad\mbox{--House 4’s neighbours are House 3 and House 5}\\
+    \varphi_{10}:&((H5R \wedge H4R \wedge H1R \wedge H2B \wedge H3B)&\vee&(H1B \wedge H4B \wedge H1B \wedge H2R \wedge H3R))\\
+    &&&\quad\mbox{--House 5’s neighbours are House 4 and House 1}\\
+\end{array}\]
+\[\begin{array}{rcll}
+\psi:&\underset{n = 1}{\overset{10}{\bigwedge}} \varphi_n = \top&\mbox{--It is the conclusion}\\
+\end{array}\]
+\subsubsection*{(iii)}
+I will use the truth table to search for the truth assignment which lets $v(\psi) = True$. The truth assignment which meets the requirement is the solution.\\
+\subsection*{(b)}
+\subsubsection*{(i)}
+\[\begin{array}{rcll}
+    G &=& (V, E)\\
+    V &=& \{H1,H2,H3,H4,H5\}&\mbox{-- $Hn$ represents House n}\\
+    E &=& \{\{H1, H2\}, \{H2, H3\}, \{H3, H4\}, \{H4, H5\}, \{H5, H1\}\}&\mbox{-- $\{Ha,Hb\}$ represents House a and b are neighbours}\\
+\end{array}\]
+\subsubsection*{(ii)}
+Find all the path in $G$. All the nodes in the same path must have the same colour\\
+\subsubsection*{(iii)}
+G is a cycle because it has the same number of edges and vertices and no proper subpath has this property\\
+Since $G$ is a cycle, colours of all the nodes are the same colour, either all red or all blue.\\
+Because two houses must be neighbours if they have the same colour, then $G$ must be a complete graph.\\
+$\{H1, H3\}$ not in $E$, so $G$ cannot be a complete graph.\\
+Therefore painting is impossible to be done.\\
+\section*{Problem 6}
+\subsection*{(a)}
+\[\begin{array}{rcl}
+    p_1(n+1) &=& \frac{1}{3} p_5(n) + \frac{1}{3} p_2(n) + \frac{1}{2}p_1(n)\\
+    p_2(n+1) &=& \frac{1}{4} p_1(n) + \frac{1}{3} p_3(n) + \frac{1}{3}p_2(n)\\
+    p_3(n+1) &=& \frac{1}{3} p_2(n) + \frac{1}{3} p_4(n) + \frac{1}{3}p_3(n)\\
+    p_4(n+1) &=& \frac{1}{3} p_3(n) + \frac{1}{3} p_5(n) + \frac{1}{3}p_4(n)\\
+    p_5(n+1) &=& \frac{1}{3} p_4(n) + \frac{1}{4} p_1(n) + \frac{1}{3}p_5(n)\\
+\end{array}\]
+\subsection*{(b)}
+Rewrite $p_i(n+1)$ with $p_i(n+1)=p_i(n)$ and let $p_i$ be the steady state value of $p_i(n)$:\\
+\[\begin{array}{rcl}
+    p_1 &=& \frac{1}{3} p_5 + \frac{1}{3} p_2 + \frac{1}{2}p_1\\
+    p_2 &=& \frac{1}{4} p_1 + \frac{1}{3} p_3 + \frac{1}{3}p_2\\
+    p_3 &=& \frac{1}{3} p_2 + \frac{1}{3} p_4 + \frac{1}{3}p_3\\
+    p_4 &=& \frac{1}{3} p_3 + \frac{1}{3} p_5 + \frac{1}{3}p_4\\
+    p_5 &=& \frac{1}{3} p_4 + \frac{1}{4} p_1 + \frac{1}{3}p_5\\
+\end{array}\]
+$\underset{i=1}{\overset{5}{\sum}}p_i$ must be equal to 1.\\
+$$p_1 + p_2 + p_3 + p_4 + p_5 = 1$$
+This set of equations below need to be solved.
+\begin{center}
+    $\begin{cases}
+        p_1 = \frac{1}{3} p_5 + \frac{1}{3} p_2 + \frac{1}{2}p_1\\
+        p_2 = \frac{1}{4} p_1 + \frac{1}{3} p_3 + \frac{1}{3}p_2\\
+        p_3 = \frac{1}{3} p_2 + \frac{1}{3} p_4 + \frac{1}{3}p_3\\
+        p_4 = \frac{1}{3} p_3 + \frac{1}{3} p_5 + \frac{1}{3}p_4\\
+        p_5 = \frac{1}{3} p_4 + \frac{1}{4} p_1 + \frac{1}{3}p_5\\
+        p_1 + p_2 + p_3 + p_4 + p_5 = 1\\
+    \end{cases}$
+\end{center}
+Result:\\
+\begin{center}
+    $\begin{cases}
+        p_1 = \frac{1}{4}\\
+        p_2 = \frac{3}{16}\\
+        p_3 = \frac{3}{16}\\
+        p_4 = \frac{3}{16}\\
+        p_5 = \frac{3}{16}\\
+    \end{cases}$
+\end{center}
+\subsection{(c)}
+Let $d_1$, $d_2$, $d_3$, $d_4$, $d_5$ be the distance from House 1, 2, 3, 4 or 5 (respectively) to House 1.
+\[\begin{array}{rcl}
+    d_1 &=& 0\\
+    d_2 &=& 1\\
+    d_3 &=& 2\\
+    d_4 &=& 2\\
+    d_5 &=& 1\\
+\end{array}\]
+\[\begin{array}{rcl}
+    E(d)    &=& \underset{i=1}{\overset{5}{\sum}} p_i\times d_i\\
+            &=& p_1 \times d_1 + p_2 \times d_2 + p_3 \times d_3 + p_4 \times d_4 + p_5 \times d_5\\
+            &=& \frac{1}{4} \times 0 + \frac{3}{16} \times 1 + \frac{3}{16} \times 2 + \frac{3}{16} \times 2 + \frac{3}{16} \times 1\\
+            &=& \frac{9}{8}\\
+\end{array}\]
+\section*{Problem 7}
+\subsection*{(a)}
+$count(T)$ is a function that counts the number of nodes in a binary tree $T$.\\
+\subsubsection*{[B]}
+$T(0) = 1$\\
+$T(1) = 1$\\
+$T(2) = 2$\\
+\subsubsection*{[R]}
+Let the root node of a binary tree $T$ with n nodes has a left-child $T_{left}$ and a right-child $T_{right}$ for $n \geq 3$. Then $count(T_{left}) + count(T_{right}) = n - 1$\\
+Assume $count(T_{left}) = i$ and $count(T_{right}) = n - 1 - i$ where $i \in [0, n-1]$, then the number of different $T_{left}$ and $T_{right}$ is $T(i)$ and $T(n - 1 -i)$. So the number of different binary trees with n nodes whose left-child and right-child of root node has $i$ and $n - 1 -i$ nodes respectively is $T(i) \times T(n - 1 - i)$.\\
+Therefore $T(n) = \underset{i=0}{\overset{n-1}{\sum}}T(i) \times T(n-1-i)$\\
+\subsection*{(b)}
+Since there are no half-leaves in a non-empty binary tree, then $count(T) = 2 \times leaves(T) -1$.\\
+Because $leaves(T)$ is always a non-negative integer, then $count(T)$ is always an odd number.\\
+\subsection*{(c)}
+\subsubsection*{$n$ is an even number}
+$B(n)= 0$ for n is an even number since a full binary tree must have an odd number of nodes.\\
+\subsubsection*{$n$ is an odd number}
+Assume a full binary tree has $x$ internal nodes and $y$ external nodes.\\
+Because beside the root node, each internal node must connect to one internal node beyond its level, then the number of connection between internal nodes is $x - 1$\\
+Because each child of an internal node can be another internal node or an external node and each external node must connect to an internal node, then the number of connection between internal nodes is $2 \times x - y$\\
+\[\begin{array}{rcl}
+    2\times x - y   &=& x - 1\\
+                x   &=& y - 1\\
+\end{array}\]
+Therefore a full binary tree with $n$ nodes always has $(n-1)/2$ internal nodes and $(n+1)/2$ external nodes.\\
+Because we can only get one new binary tree by changing all the $(\tau, \tau)$ in a full binary tree into $\tau$, then two full binary trees are different if their structures of internal nodes are different.\\
+Therefore the number of different full binary tree with $n$ nodes is equal to the number of different binary tree with $(n-1)/2$ nodes.\\
+$B(n) = T((n - 1)/2)$ for n is an odd\\
+\subsection*{(d)}
+Assume reduction stops in a parse tree when the node is a literal.\\
+In a such parse tree, a node always has two children when it is $\wedge$ or $\vee$, and a node always has no child when it is a literal. So this tree is always a full binary tree. The sum of the number of $\vee$, $\wedge$ is $n - 1$. Hence the parse tree of a negated normal formula with $n$ propositional variables has $2n -1$ nodes. So the number of different structures of parse tree for negated normal form formulas with $n$ propositional variables is $B(2n-1)$.\\
+Since a literal node can be select from $p$ and $\neg p$ and other nodes can be selected from $\vee$ and $\wedge$, each node has two choices. Then there are $n!$ kinds of different order for $n$ propositional variables. Therefore the number of parse trees with same structure is $n!\times 2^{2n-1}$\\
+\\
+$F(n) = n! \times 2^{2n-1} \times B(2n -1)$\\
+\end{document}

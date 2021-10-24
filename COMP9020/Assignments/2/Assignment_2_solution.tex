@@ -1,0 +1,424 @@
+\documentclass{article} % simplest latex class that gives nice default structures.  Other classes include standalone, book
+
+% Recommended packages:
+\usepackage{listings} % used for listing code
+
+\usepackage{graphicx} % used for importing graphics
+
+
+% Suggested packages:
+\usepackage{tikz} % used for drawing figures in LaTeX directly
+\usetikzlibrary{automata,calc,arrows} % some useful default tikz packages
+
+\usepackage{enumerate} % used for finer control over enumerate lists
+
+\usepackage{algorithm} % used for specifying algorithms
+\usepackage{algpseudocode} % ditto (you need both)
+\usepackage{amsmath}
+\usepackage{fullpage} % reduces a page's margins to 1cm instead of 1in
+
+\usepackage{mathpazo} % better? fonts
+
+\usepackage{hyperref} % hyperlinks: compile with pdflatex for best results
+
+\usepackage{amssymb}
+
+
+\begin{document}
+
+\title{Assignment 2}
+\author{Tianyi Zhu} % let's keep things anonymous
+\maketitle % to actually insert the above three items
+
+\section*{Problem 1} % use section* to suppress numbering
+\subsection*{(a)}
+$\because R_1 \cap R_2$ has all the elements which are both in $R_1$ and $R_2$.\\
+$\therefore$ If some element is both in $R_1$ and $R_2$, it is an element of $R_1 \cap R_2$.\\
+$\because R_1, R_2 $ are two equivalence relations on S.\\
+$\therefore R_1, R_2$ are reflexive, symmetric and transitive.\\
+\\
+Reflexive:\\
+$\because$ According to the definition of reflexive: For all $x \in S$, $(x, x)\in R_1, R_2$.\\
+$\therefore (x, x)\in R_1\cap R_2$ and $R_1 \cap R_2$ is reflexive.\\
+\\
+Symmetric:\\
+Suppose there exists some $(x', y') \in R_1 \cap R_2$, then $(x', y') \in R_1, R_2$.\\
+$\because$ According to the definition of symmetric : \\
+For all $x, y \in S$: If $(x, y) \in R_1$ then $(y, x) \in R_1$. \\
+For all $x, y \in S$: If $(x, y) \in R_2$ then $(y, x) \in R_2$. \\
+$\because (x', y')\in R_1, R_2$\\
+$\therefore (y', x') \in R_1, R_2$. Then $(y', x') \in R_1 \cap R_2$ and $R_1 \cap R_2$ is symmetric.\\
+\\
+Transitive:\\
+Suppose there exists some $(x', y'), (y', z')\in R_1 \cap R_2$, then $(x', y'), (y', z')\in R_1, R_2$\\
+$\because$ According to the definition of transitive: \\
+For all $x, y, z \in S$: If $(x, y)$ and $(y, z) \in R_1$ then $(x, z) \in R_1$. \\
+For all $x, y, z \in S$: If $(x, y)$ and $(y, z) \in R_2$ then $(x, z) \in R_2$. \\
+$\because (x', y'), (y', z')\in R_1, R_2$\\
+$\therefore (x', z') \in R_1, R_2$. Then $(x', z')\in R_1 \cap R_2$ and $R_1 \cap R_2$ is transitive.\\
+\\
+$\because R_1 \cap R_2$ is reflexive, symmetric and transitive. \\
+$\therefore R_1 \cap R_2$ is an equivalence relation\\
+\subsection*{(b)}
+Suppose there exists some element $y \in [x]_1, [x]_2$\\
+By the definition of $[x]_1, [x]_2$: $(x, y) \in R_1, R_2$\\
+$(x, y) \in R_1 \cap R_2$ since $(x, y) \in R_1, R_2$\\
+Hence all the common elements of $[x]_1$ and $[x]_2$ are in $[x]$.\\
+\\
+Suppose there exists element $z \in [x]$\\
+By the definition of $[x]$: $(x, z) \in R_1 \cap R_2$\\
+$(x, y) \in R_1, R_2$ since $(x, y) \in R_1 \cap R_2$\\
+Hence all the elements of $[x]$ are in both $[x]_1$ and $[x]_2$.\\
+\\
+$\because$ All the common elements of $[x]_1$ and $[x]_2$ are in $[x]$, and all the elements of $[x]$ are in both $[x]_1$ and $[x]_2$.\\
+$\therefore [x] = [x]_1 \cap [x]_2$\\
+\subsection*{(c)}
+Assume $S = \{1, 2, 3\}$, $R_1 = \{(1, 1), (2, 3), (3, 3), (1, 2), (2, 1)\}$ and $R_2 = \{(1, 1), (2, 2), (3, 3), (2, 3), (3, 2)\}$\\
+Then $R_1 \cup R_2 =\{(1, 1), (2, 3), (3, 3), (1, 2), (2, 1), (2, 3), (3, 2)\}$\\
+Because for $(1, 2), (2, 3)\in R_1 \cup R_2$, there is no $ (1, 3) \in R_1 \cup R_2$.\\
+Hence $R_1 \cup R_2$ is not always an equivalence relation.\\
+
+\section*{Problem 2}
+\subsection*{(a)}
+Because By the definition of reflexive: For all $x \in S$, $(x, x)\in R_1, R_2$\\
+Therefore For all $x \in S$, $ (x, x) \in R_1;R_2$\\
+Hence $R_1;R_2$ is reflexive.\\
+
+\subsection*{(b)}
+Assume that there is no common b with $(a, b)\in R_1, (b, c)\in R_2$, then $R_1;R_2$ is $\emptyset$.\\
+Because $\emptyset$ is symmetric, $R_1;R_2$ is symmetric in this situation.\\
+\\
+Assume there exists a b with $(a, b)\in R_1, (b, c)\in R_2$.\\
+By the definition of symmetric: $(b, a)\in R_1$ and $(c, b)\in R_2$\\
+But there is no such b with $(c, b) \in R_1$ and $(b, a) \in R_2$\\
+Therefore $(c,a) \notin R_1;R_2$\\
+Hence $R_1;R_2$ is not symmetric.\\
+
+\subsection*{(c)}
+Assume $S=\{1, 2, 3\}$, $R_1=\{(2, 1), (1, 3), (2, 3)\}$ and $R_2 = \{(1, 3), (3, 2), (1, 2)\}$\\
+$R_1$ is transitive because for $(2, 1), (1, 3) \in R_1$, $(2, 3) \in R_1$\\
+$R_1$ is transitive because for $(1, 3), (3, 2) \in R_1$, $(1, 2) \in R_1$\\
+Then $R_1;R_2 = \{(2, 3), (1, 2), (2, 2)\}$\\
+Because there is $(1, 3)$ in $R_1;R_2$, $R_1;R_2$ is not transitive. 
+
+\section*{Problem 3}
+\subsection*{(a)}
+Let $P(a)$ be the proposition that $R^{i+a+1}=R^{i+a}$\\
+We will show that P(a) holds for all a by induction on a\\
+\\
+Base case: $a=0$\\
+$P(0):R^i=R^{i+1}$\\
+$P(0)$ holds\\
+\\
+Inductive case:\\
+Assume P(a) hold. That is, $R^{i+a}=R^{i+a+1}$\\
+We will show P(a+1) holds\\
+$\because R^{i+a+1} = R^{i+a} \cup (R;R^{i+a})$\\
+$\therefore(R;R^{i+a}) \subseteq R^{i+a+1}$\\
+$\because R^{i+a} = R^{i+a+1}$\\
+$\therefore R;R^{i+a} = R;R^{i+a+1}$\\
+$\because R;R^{i+a}\subseteq R^{i+a+1}$ and $R;R^{i+a} = R;R^{i+a+1}$\\
+$\therefore R;R^{i+a+1} \subseteq R^{i+a+1}$\\
+$\because R;R^{i+a+1} \subseteq R^{i+a+1}$ and $R^{i+a+2} = R^{i+a+1} \cup (R;R^{i+a+1})$\\
+$\therefore R^{i+a+2} = R^{i+a+1}$\\
+So $P(a)$ implies $P(a+1)$.\\
+Therefore, by induction, P(a) hold for all x and $R^j = R^i$ for all $j \geqslant i$.\\
+
+\subsection*{(b)}
+$\because R^j = R^i$ for all $j \geqslant i$\\
+$\therefore R^j \subseteq R^i$ holds for all $j \geqslant i$\\
+\\
+$\because R^{n+1} = R^{n} \cup (R;R^{n})$\\
+$\therefore R^n \subseteq R^{n + 1}$\\
+Base case: $P(0): R^{i+1} \subseteq R^i$\\
+Induction case: $P(a): R^{i-a} \subseteq R^i$\\
+$\because R^n \subseteq R^{n + 1}$\\
+$\therefore P(a-1): R^{i-a-1} \subseteq R^i$\\
+So $P(a)$ implies $P(a-1)$.\\
+Therefore for all $0\leqslant j<i$,  $R^j \subseteq R^i$ holds\\
+\\
+So  $R^j \subseteq R^i$ for all $j\geqslant 0$
+
+\subsection*{(c)}
+$\because R^j = R^{j+1}$ for $j\geqslant i_{min}$. \ \ ($i_{min}$ means the smallest $i$)\\
+$\therefore R^{k^2} = R^{k^2+1}$ if $k^2 > i_{min}$\\
+$\because R^n \subset R^{n + 1}$\\
+$\therefore R^{x-1} \subset R^{x}$ for $1 < x < i_{min}$ \\
+$\therefore \vert R^{x}\vert_{min} = \vert R^{x-1}\vert + 1$\\
+Suppose a binary relation $(x_1, x_2) \subseteq S \times S$.\\
+Both $x_1$ and $x_2$ have $k$ different value to select from. And the selection of value is independent which means the selection of $x_1$ value does not have an influence on the selection of $x_2$ value, vice versa.\\
+So the max number of possible $(x_1,x_2)$ is $k^2$ which is also the maximum of $\vert R^{n}\vert$.\\
+$\because \vert R^{0}\vert = k$, $\vert R^{n}\vert_{max} = k^2$ and $\vert R^{x}\vert_{min} = \vert R^{x-1}\vert + 1$\\
+$\therefore i_{min}\leqslant k^2-k$\\
+$\because k^2-k < k$\\
+$\therefore R^{k^2} = R^{k^2+1}$ holds for $\vert S \vert = k$\\
+
+\subsection*{(d)}
+Let $P(n)$ be the proposition that for all $m \in N: R^n; R^m = R^{n+m}$\\
+Base case: $P(0)$\\
+\[
+\begin{array}{rlc}
+R^{0};R^m &= I;R^m\\
+        &= R^m &\mbox{(Assignment 1 8(b))}\\
+        &= R^{m+0}\\
+\end{array} 
+\]
+So $P(0)$ holds.
+\\
+Inductive case:\\
+Assume $P(n)$ holds that is for all $m \in N: R^n; R^m = R^{n+m}$\\
+\[
+\begin{array}{rlc}
+    R^1;R^m     &= (R^0 \cup R;R^0);R^m \\
+                &= (I \cup R;I);R^m \\
+                &= (I \cup R);R^m       &\mbox{(Assignment 1 8(b))}\\
+                &= (I;R^m) \cup (R;R^m)   &\mbox{(Assignment 1 8(c))}\\
+                &= R^m \cup (R;R^m)     &\mbox{(Assignment 1 8(b))}\\
+                &= R^{m+1}\\
+\end{array}
+\]
+So $R^1;R^m = R^{m + 1}$ holds for $m \in \mathbb{N}$.\\
+\[
+\begin{array}{rlc}
+    R^1;(R^n;R^m)   &= R^1;(R^{n + m})    \\
+    (R^1;R^n);R^m   &= R^{n + m + 1} \\
+    R^{n + 1};R^{m} &= R^{n + m + 1}\\
+          
+\end{array}
+\]
+So $P(n)$ implies $P(n + 1)$\\
+Therefore, by induction, $P(n)$ holds for all $n\in \mathbb{N}$.
+
+\subsection*{(e)}
+Assume there is $(x, y), (y, z)\in R^m$ and $(x, z) \notin R^m$\\
+According to (d), $R^{2m} = R^m;R^m$.\\
+By the definition of ; : $(x, z) \in R^{2m}$\\
+$\because R^{2m}\subseteq R^{k^2}$\\
+$\therefore$ For all $x, y, z \in S$: If $(x, y)$ and $(y, z)\in R^{k^2}$, then ${x, z}\in R^{k^2}$\\
+\\
+Assume there no $(x, y), (y, z)\in R^m$ for all m\\
+\[\begin{array}{rlcr}
+    R^1 &= R^0 \cup (R;R^0)\\
+        &= I \cup R\\
+\end{array}\]
+Because there is no $(x, y), (y, z)\in R^m$ for all m, $(x, y), (y, z) \notin R^{k^2}$\\
+
+So $R^{k^2}$ is transitive.\\
+
+\subsection*{(f)}
+$\because R \subseteq S\times S$ \\
+$\therefore R^{\gets} \subseteq S \times S$ by the definition of $R^{\gets}$\\
+$\because R \subseteq S\times S$ and $R^{\gets} \subseteq S \times S$\\
+$\therefore R\cup R^{\gets} \subseteq S \times S$\\
+\subsubsection*{Reflexive}
+$\because$ According to (b)(c), $R^0 \subseteq (R\cup R^{\gets})^{k^2}$\\
+$\because R^0 = \{(x, x) : x \in S\}$ \\
+$\therefore$ For all $x\in S$, $(x, x)\in (R\cup R^{\gets})^{k^2}$\\
+So $(R\cup R^{\gets})^{k^2}$ is reflexive.\\
+\subsubsection*{Symmetric}
+$\because R^{\gets}=\{(t,s) \in S \times S : (s,t) \in R\}$\\
+$\therefore$ For all $(x, y)\in R$, then  $(y, x)\in R^{\gets}$\\
+$\because (R \cup R^{\gets})^1 = I \cup (R \cup R^{\gets};I) =I \cup (R \cup R^{\gets})$\\
+$\because$ According to (b)(c), $R^1 \subseteq (R\cup R^{\gets})^{k^2}$\\
+$\therefore$ For all $(x, y)\in (R\cup R^{\gets})^{k^2}$, then  $(y, x)\in (R\cup R^{\gets})^{k^2}$\\
+So $(R\cup R^{\gets})^{k^2}$ is symmetric.
+\subsubsection*{Transitive}
+$\because$ According to (e), $R^{k^2}$ is transitive for all $R \subseteq S\times S$.\\
+$\therefore (R\cup R^{\gets})^{k^2}$ is transitive.\\
+\\
+So $(R\cup R^{\gets})^{k^2}$ is an equivalence relation.\\
+\subsection*{(g)}
+Assume that $(R\cup R^{\gets})^{k^2}$ is not the minimun of all the equivalence relation that contains $R$.\\
+There exists some $(x, y) \notin R\cup R^{\gets}$ that can be removed from $(R\cup R^{\gets})^{k^2}$ and $(R\cup R^{\gets})^{k^2}\backslash (x, y)$ is still an equivalence relation.\\
+Because $(R\cup R^{\gets})^{k^2}\backslash (x, y)$ is reflexive, $x \neq y$.\\
+Because $(R\cup R^{\gets})^{k^2}\backslash (x, y)$ is symmetric, $(y, x)$ must be removed.\\
+Assume there is no $(y, z), (z, x) \in (R\cup R^{\gets})^{k^2}$\\
+Because there is no $(y, z), (z, x) \in (R\cup R^{\gets})^{k^2}$, there is no $(y, z), (z, x) \in$ any $(R\cup R^{\gets})^{m}$.\\
+Because $(x, y)$ is impossible to get from $(R\cup R^{\gets})^n;(R\cup R^{\gets})^m$, $(x, y)$ must be in $(R\cup R^{\gets})^{1}$.\\
+Because $(R\cup R^{\gets})^1 = (R\cup R^{\gets}) \cup I$ and $(x, y) \notin I$, $(x, y)$ must be in $R\cup R^{\gets}$\\
+So there is a conflict and $(R\cup R^{\gets})^{k^2}$ is the minimun of all the equivalence relation that contains $R$ in this situation.\\
+\\
+Assume there is $(y, z), (z, x) \in (R\cup R^{\gets})^{k^2}$\\
+Because $(x, y)$ is removed, $(y, z), (z, x), (z, y), (x, z)$ must also be reomved.\\
+Because $(x, y), (y, x), (x, z), (z, x), (y, z), (z, y)$ are removed and none of them is an element of $R\cup R^{\gets}$\\
+Because $(x, y), (y, x), (x, z), (z, x), (y, z), (z, y) \notin I$, none of them is in $(R\cup R^{\gets})^{1}$\\
+So $(x, y), (y, x), (x, z), (z, x), (y, z), (z, y)$ is impossible to get from $(R\cup R^{\gets})^n;(R\cup R^{\gets})^m$.\\
+$(x, y), (y, x), (x, z), (z, x), (y, z), (z, y)\notin (R\cup R^{\gets})^{k^2}$\\
+There is a conflict.\\
+\\
+Hence, $(R\cup R^{\gets})^{k^2}$ is the minimun of all the equivalence relation that contains $R$.\\
+
+
+
+\section*{Problem 4}
+Assume $f(n) \leqslant cn$ for all positive numbers less than $n$. Therefore\\
+\[
+\begin{array}{rlcr}
+f(n)    &\leqslant f(\lfloor \frac{n}{3} \rfloor) + 3f(\lfloor \frac{n}{5} \rfloor) +n\\
+        &\leqslant c \frac{n}{3} + 3c\frac{n}{5} + n\\
+        &\leqslant (\frac{14}{15}c + 1)n\\
+        &\leqslant c_{next}n
+\end{array}
+\]
+\\
+$\because \frac{14}{15}<1$ is a negative feedback which means $c_{next}$ will decrease after some point.\\
+$\therefore$ There is a upper bound of $c_{next}$.\\
+$\because c_{next} = \frac{14}{15}c =\frac{f(n)}{n}$\\
+$\therefore c_{x} =(\frac{14}{15})^x c_0 + 15(1-(\frac{14}{15})^{x})$\\
+$\therefore \lim\limits_{x\to+\infty}c_{x} =(\frac{14}{15})^x c_0 + 15(1-(\frac{14}{15})^{x}) = 15$\\
+So if $f(n) \leqslant cn$ for all positive numbers less than $n$, $f(n)\leqslant cn$\\
+$\because$
+\[
+\begin{array}{rlcr}
+    f(1)    &=f(0)+3f(0)+1=1 \\
+    f(2)    &=f(0)+3f(0)+2=2 \\
+\end{array}
+\]
+$\therefore f(n)\leqslant n$ for all positive numbers less than 3\\
+So $f(n) \in O(n)$\\
+
+\section*{Problem 5}
+\subsection*{(a)}
+count(T):\\
+.\qquad if $T == \tau$\\
+.\qquad\qquad return 0\\
+.\qquad elif $T_{left} == \tau$ and $T_{right} == \tau$\\
+.\qquad\qquad return 1\\
+.\qquad elif $T_{left} == \tau$\\
+.\qquad\qquad return 1 + count($T_{right}$)\\
+.\qquad elif $T_{right} == \tau$\\
+.\qquad\qquad return 1 + count($T_{left}$)\\
+.\qquad else\\
+.\qquad\qquad return 1 + count($T_{left}$) + count($T_{right}$)\\
+\\
+\subsection*{(b)}
+leaves(T):\\
+.\qquad if $T == \tau$\\
+.\qquad\qquad return 0\\
+.\qquad elif $T_{left} == \tau$ and $T_{right} == \tau$\\
+.\qquad\qquad return 1\\
+.\qquad elif $T_{left} == \tau$\\
+.\qquad\qquad return leaves($T_{right}$)\\
+.\qquad elif $T_{right} == \tau$\\
+.\qquad\qquad return leaves($T_{left}$)\\
+.\qquad else\\
+.\qquad\qquad return leaves($T_{left}$) + leaves($T_{right}$)\\
+
+\subsection*{(c)}
+half-leaves(T):\\
+.\qquad if $T == \tau$\\
+.\qquad\qquad return 1\\
+.\qquad elif $T_{left} == \tau$ and $T_{right} == \tau$\\
+.\qquad\qquad return 0\\
+.\qquad elif $T_{left} == \tau$\\
+.\qquad\qquad return 1 + half-leaves($T_{left}$)\\
+.\qquad elif $T_{right} == \tau$\\
+.\qquad\qquad return 1 + half-leaves($T_{right}$)\\
+.\qquad else\\
+.\qquad\qquad return half-leaves($T_{left}$) + half-leaves($T_{right}$)\\
+
+
+\subsection*{(d)}
+Let $P(T)$ be the proposition that $count(T) = 2 \times leaves(T) + half-leaves(T) - 1$\\
+\subsubsection*{Base case: $P(\tau)$ and $P(\tau,\tau)$}
+\subsubsection*{$P(\tau)$}
+An empty tree has 0 node, 0 leaf and 1 half-leaf.\\
+$count(\tau) = 0$\\
+$2\times leaves((\tau)+half$-$leaves((\tau) - 1 = 2\times 0 + 1-1 = 0$\\
+$\because count((\tau,\tau)) = 2\times leaves((\tau,\tau))+half$-$leaves(((\tau,\tau))$\\
+$\therefore P((\tau)$ holds\\
+
+\subsubsection*{$P((\tau,\tau))$}
+This kind of binary tree has 1 node, 1 leaf and 0 half-leaf.\\
+$count((\tau,\tau)) = 1$\\
+$2\times leaves(((\tau,\tau))+half$-$leaves((\tau,\tau)) - 1 = 2\times 1 + 0-1 = 1$\\
+$\because count((\tau,\tau)) = 2\times leaves((\tau,\tau))+half$-$leaves(((\tau,\tau))$\\
+$\therefore P(((\tau,\tau))$ holds\\
+
+
+\subsubsection*{Inductive case:}
+To extend a existed binary, there are two ways. The first one extends from a leaf while the second one extends from a half-leaf\\
+Assume T has N nodes, L leaves and H half-leaves. \\
+\subsubsection*{Transform one leaf in T from $(\tau, \tau )$ into $((\tau,\tau),\tau)$}
+Suppose the transformed binary tree is called $T_{new1}$\\
+$count(((\tau,\tau),\tau))$ = 1 + $count(\tau, \tau)$\\
+$leaves(((\tau,\tau),\tau)) = leaves((\tau,\tau))$\\
+$half-leaves(((\tau,\tau),\tau)) = 1 + half-leaves((\tau,\tau))$\\
+\\
+$N_{new1} = N + 1$\\
+$L_{new1} = L $\\
+$H_{new1} = H + 1$\\
+\\
+$\because N = 2\times L + H - 1$\\
+$\therefore N_{new1} = 2\times L_{new1} + H_{new1} - 1$\\
+So $P(T)$ implies $P(T_{new1})$\\
+\subsubsection*{Transform one leaf in T from $(\tau, \tau )$ into $(\tau,(\tau,\tau))$}
+Suppose the transformed binary tree is called $T_{new2}$\\
+$count((\tau,(\tau,\tau)))$ = 1 + $count(\tau, \tau)$\\
+$leaves((\tau,(\tau,\tau))) = leaves((\tau,\tau)$\\
+$half-leaves((\tau,(\tau,\tau))) = 1 + half-leaves((\tau,\tau))$\\
+\\
+$N_{new2} = N + 1$\\
+$L_{new2} = L $\\
+$H_{new2} = H + 1$\\
+\\
+$\because N = 2\times L + H - 1$\\
+$\therefore N_{new2} = 2\times L_{new2} + H_{new2} - 1$\\
+So $P(T)$ implies $P(T_{new2})$\\
+
+\subsubsection*{Transform one half-leaf in T from $(t_{left}, \tau )$ into $(t_{left},(\tau,\tau))$}
+Suppose the transformed binary tree is called $T_{new3}$\\
+$count((t_{left},\tau)) = count(t_{left}) + 1$\\
+$count((t_{left},(\tau,\tau))) = count(t_{left}) + count((\tau,\tau))+1 = count(t_{left}) + 2$\\
+$leaves((t_{left},\tau)) = leaves(t_{left})$\\
+$leaves((t_{left},(\tau,\tau)) = leaves(t_{left}) + leaves((\tau,\tau)) = leaves(t_{left}) + 1$\\
+$half-leaves((t_{left},\tau)) = leaves(t_{left}) + 1$\\
+$half-leaves((t_{left},(\tau,\tau)) = half-leaves(t_{left}) + half-leaves(\tau, \tau) = half-leaves(t_{left})$\\
+\\
+$N_{new3} = N + 1$\\
+$L_{new3} = L + 1$\\
+$H_{new3} = H - 1$\\
+\\
+$\because N = 2\times L + H - 1$\\
+$\therefore N_{new3} = 2\times L_{new3} + H_{new3} - 1$\\
+So $P(T)$ implies $P(T_{new3})$\\
+\subsubsection*{Transform one half-leaf in T from $(\tau, t_{right})$ into $((\tau,\tau), t_{right})$}
+Suppose the transformed binary tree is called $T_{new4}$\\
+$count((\tau, t_{right})) = count(t_{right}) + 1$\\
+$count((\tau,\tau), t_{right}) = count(t_{right}) + count((\tau,\tau))+1 = count(t_{right}) + 2$\\
+$leaves((\tau, t_{right})) = leaves(t_{right})$\\
+$leaves((\tau,\tau), t_{right}) = leaves(t_{right}) + leaves((\tau,\tau)) = leaves(t_{right}) + 1$\\
+$half-leaves((\tau, t_{right})) = leaves(t_{right}) + 1$\\
+$half-leaves((\tau,\tau), t_{right}) = half-leaves(t_{right}) + half-leaves(\tau, \tau) = half-leaves(t_{right})$\\
+\\
+$N_{new4} = N + 1$\\
+$L_{new4} = L + 1$\\
+$H_{new4} = H - 1$\\
+\\
+$\because N = 2\times L + H - 1$\\
+$\therefore N_{new4} = 2\times L_{new4} + H_{new4} - 1$\\
+So $P(T)$ implies $P(T_{new4})$\\
+\\
+Therefore, by induction, P(T) holds for all T.\\
+
+\section*{Problem 6}
+\subsection*{(a)}
+The running time of sum is $O(1)+O(n)+O(n^2)+O(1)$ and its asymptotic upper bound is $O(n^2)$\\
+\subsection*{(b)}
+The running time of product is $O(1)+O(n)+O(n^4)+O(1)$ and its asymptotic upper bound is $O(n^4)$\\
+\subsection*{(c)}
+One multiplication of two $n \times n$ matrices includes 8 multiplications of two $\frac{n}{2} \times \frac{n}{2}$ matrices 
+and 4 additions of two $\frac{n}{2} \times \frac{n}{2}$ matrices.\\
+The running time of one multiplications of two $\frac{n}{2} \times \frac{n}{2}$ matrices is $T(\frac{n}{2})$\\
+The running time of one additions of two $\frac{n}{2} \times \frac{n}{2}$ matrices is $(\frac{n}{2})^2$\\
+Therefore, the recurrence equation of $T(n)$ is $T(n) = 8T(\frac{n}{2}) +4(\frac{n}{2})^2$
+
+\subsection*{(d)}
+$T(n) = 8T(\frac{n}{2}) +4(\frac{n}{2})^2$\\
+According to Master Theorem, $a=8$, $b=2$, $c=2$ and $d=\log_{b}{a}=3$\\
+$\because d<c$\\
+$\therefore T(n)=O(n^3)$\\
+
+
+\end{document}
+

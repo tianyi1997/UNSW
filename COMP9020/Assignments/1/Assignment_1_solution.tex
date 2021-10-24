@@ -1,0 +1,392 @@
+
+\documentclass{article} % simplest latex class that gives nice default structures.  Other classes include standalone, book
+
+% Recommended packages:
+\usepackage{listings} % used for listing code
+
+\usepackage{graphicx} % used for importing graphics
+
+
+% Suggested packages:
+\usepackage{tikz} % used for drawing figures in LaTeX directly
+\usetikzlibrary{automata,calc,arrows} % some useful default tikz packages
+
+\usepackage{enumerate} % used for finer control over enumerate lists
+
+\usepackage{algorithm} % used for specifying algorithms
+\usepackage{algpseudocode} % ditto (you need both)
+\usepackage{amsmath}
+\usepackage{fullpage} % reduces a page's margins to 1cm instead of 1in
+
+\usepackage{mathpazo} % better? fonts
+
+\usepackage{hyperref} % hyperlinks: compile with pdflatex for best results
+
+\usepackage{amssymb}
+
+\begin{document}
+
+\title{COMP9020 Assignment 1}
+\author{Tianyi Zhu} % let's keep things anonymous
+\date{} % to suppress the date
+\maketitle % to actually insert the above three items
+
+\section*{Problem 1} % use section* to suppress numbering
+\subsection*{(a)} % use subsection* to suppress numbering
+\[\begin{array}{rclr}
+S_{2,-4}=\{2\times m+(-4)\times n:m,n\in \mathbb{Z}\}\\
+\\
+2\times 1+(-4)\times 1&=&-2\\
+2\times 1+(-4)\times 2&=&-6\\
+2\times 2+(-4)\times 1&=&0\\
+2\times 2+(-4)\times 2&=&-4\\
+2\times 4+(-4)\times 1&=&4\\
+\\
+\end{array}\]
+-2, -6, 0, -4, 4 are five elements of $S_{2,-4}$.
+\subsection*{(b)}
+\[\begin{array}{rclr}
+S_{12,18}=\{12\times m+18\times n:m,n\in \mathbb{Z}\}\\
+\\
+12\times 1+18\times 1&=&30\\
+12\times 2+18\times 3&=&78\\
+12\times 3+18\times 2&=&72\\
+12\times 1+18\times 5&=&102\\
+12\times 2+18\times 6&=&132\\
+\\
+\end{array}\]
+30, 78, 72, 102, 132 are five elements of $S_{12,18}$.
+
+\subsection*{(c)}
+\subsubsection*{(i)}
+For $d = \gcd (x,y)$ if and only if, $d\mid x$ and $d\mid y$.\\
+Let $x=a\cdot d$ and $y=b\cdot d$ for $a,b\in \mathbb{Z}$.\\
+Assume $t\in S_{x,y}$, $t=xe+yf $ for $e,f\in \mathbb{Z}$.\\
+\[\begin{array}{rclr}
+t&=&xe+yf\\
+&=&ade+bdf\\
+&=&(ae+bf)d\\
+&\because& a,b,e,f\in \mathbb{Z}\\
+&\therefore& d\mid t\\
+\end{array}\]
+
+Therefore $\forall t\in S_(x,y)$, $d \mid t$ hold. And$S_(x,y)\subseteq \{n:n\in \mathbb{Z}$ and $d\mid n\} $\\
+\subsubsection*{(ii)}
+Since $z\in S_(x,y)$, let $z=m'x+n'y$ for $m',n'\in \mathbb{Z}$.\\
+\[\begin{array}{rclr}
+z&=&m'x+n'y\\
+&=&m'ed+n'fd\\
+&=&(m'e+n'f)d\\
+\end{array}\]
+\\
+$\because z$ is the smallest positive number in $S_{x,y}$ and $d$ is always positive.\\
+$\therefore m'e+n'f> 0$\\
+$\because m',e,n',f \in \mathbb{Z}$ and $m'e+n'f> 0$\\
+$\therefore m'e+n'f\geq 1$\\
+\[\begin{array}{rclr}
+m'e+n'f&\geq& 1\\
+(m'e+n'f)d&\geq& d\\
+z&\geq& d\\
+d&\leq& z\\
+\end{array}\]
+\subsection*{d}
+\subsubsection*{(i)}
+According to the definition of gcd, $\gcd(\vert x\vert,\vert y\vert)$ is equal to $\gcd(x,y).$\\
+$\because d = \gcd(\vert x\vert,\vert y\vert)$ is calculatable with Euclid's $\gcd$ Algorithm. Each step in Euclid's $\gcd$ Algorithm can be considered as addition or subtraction.\\
+$\therefore$ The result of Euclid's $\gcd$ Algorithm $d$ can be represented in the form of $p\vert x\vert+q\vert y\vert$ where $p,q \in \mathbb{Z}$.\\
+$\because$ if x is negative, there always exist a $-m\in \mathbb{Z}$ such that $-mx = m\vert x\vert$.\\
+$\therefore$ $d$ can be represented in the form of $px+qy$ where $p,q \in \mathbb{Z}$.\\
+$\because d$ satisfy the properites of elements in $ S_{x,y}$\\
+$\therefore d\in S_{x,y}$\\
+$\because d\leq z$ and $d,z\in S_{x,y}$\\
+$\therefore$ if $d \neq z$, $d$ is the smallest positive number in $S_{x,y}$ while $z$ is not. Hence $d=z$\\
+$\because d=z$ and $d$ is $\gcd(x,y)$\\
+$\therefore x\mid z$ and $y\mid z$\\
+\subsubsection*{(ii)}
+$\because z=d$\\
+$\therefore z\leq d$\\
+
+\section*{Problem 2}
+\subsection*{(a)}
+$\because \mathit{w}\in [0,y) \cap \mathbb{N}$	\\
+$\therefore y>0$\\
+There exists $m,n\in \mathbb{Z}$ such $mx+ny =\gcd (x,y)=1$\\
+\[\begin{array}{rlcr}
+mx+ny&\overset{mod\ y}{=}mx+0\cdot n\\
+1&\overset{mod\ y}{=}mx\\
+mx&\overset{mod\ y}{=}1\\
+\end{array}\]
+Assume there exists some $\mathit{w}\in [0,y) \cap \mathbb{N}$ such that $\mathit{w}x\overset{mod\ y}{=}1$.
+\[\begin{array}{rlcr}
+\because& mx\overset{mod\ y}{=}\mathit{w}x\mbox{ and }x\overset{mod\ y}{=}x\\
+\therefore& m\overset{mod\ y}{=}\mathit{w}\\
+								&\mathit{w}=m+ky\quad\mbox{${k\in \mathbb{Z}}$}\\
+\end{array}\]
+If only one $\mathit{w}$ exists in $[0,y)$, it must be the smallest positive $\mathit{w}$ in $\mathit{w}=m+ky$, ${k\in \mathbb{Z}}$ which is $m\%y=\mathit{w}$\\
+\[\begin{array}{rclr}
+m\%y&=&\mathit{w}\\
+m&=&\lfloor \frac{m}{y} \rfloor \cdot y+\mathit{w}\\
+(\lfloor \frac{m}{y} \rfloor \cdot y+\mathit{w})x&\overset{mod\ y}{=}1\\
+\lfloor \frac{m}{y} \rfloor xy+\mathit{w}x&\overset{mod\ y}{=}1\\
+\mathit{w}x&\overset{mod\ y}{=}1\\
+\end{array}\]
+$\because$For $\mathit{w}=m\%y$, $\mathit{w}x\overset{mod\ y}{=}1$ always hold and $m\%y\in [0,y) \cap \mathbb{N}$.\\
+$\therefore$ There is at least one $\mathit{w}\in [0,y) \cap \mathbb{N}$ such that $\mathit{w}x\overset{mod\ y}{=}1$\\
+\subsection*{(b)}
+Assume $a$ is a common multiple of $x$ and $y$ and $a$ is not a multiple of $l=lcm(x,y)$.\\
+\[\begin{array}{rclr}
+a&=&e\pmod{l}&\quad\mbox{$e\in (0,l)$}\\
+\end{array}\]
+$\because x\mid a$ and $y\mid a$\\
+$\therefore x\mid e$ and $y\mid e$\\
+$\because e<l$\\
+$\therefore e$ is the lcm of $x$ and $y$.\\
+Hence a common multiple of $x$ and $y$ must be a multiple of $lcm(c,y)$.\\
+\[\begin{array}{rclr}
+\gcd (x,y)\cdot  lcm(x,y)&=&\vert x\vert \cdot \vert y\vert\\
+lcm(x,y)&=&\vert x\vert \cdot \vert y\vert\\
+\end{array}\]
+Let $kx=z\cdot \vert x\vert \cdot \vert y\vert$ for $z \in \mathbb{Z}$.\\
+If $x$ is positive, then $k=z\cdot \vert y\vert$.\\
+If $x$ is negative, then $k=-z\cdot \vert y\vert$.\\
+$\because y\mid zy$ and $y\mid (-zy)$.\\
+$\therefore y\mid k$\\
+\subsection*{(c)}
+If there is one $\mathit{w'}\in [0,y) \cap \mathbb{N}$ such that $\mathit{w'}x\overset{mod\ y}{=}1$\\
+\[\begin{array}{rclr}
+&1&\mathit{w'}x\overset{mod\ y}{=}&1\\
+&2&\mathit{w'}x\overset{mod\ y}{=}&2\\
+&3&\mathit{w'}x\overset{mod\ y}{=}&3\\
+&\mbox{...}&&\mbox{...}\\
+&(y-1)&\mathit{w'}x\overset{mod\ y}{=}&y-1\\
+&y&\mathit{w'}x\overset{mod\ y}{=}&0\\
+&(y+1)&\mathit{w'}x\overset{mod\ y}{=}&1\\
+\end{array}\]
+The next $\mathit{w}$ is $(y+1)\mathit{w'}$.\\
+$\because {w'}\neq (y+1)\mathit{w'}$ and $y>0$\\
+$\therefore {w'}\neq0$\\
+$\because \mathit{w'}\in[1,y) \cap \mathbb{N}$\\
+$\therefore (y+1)\mathit{w'}\in [y+1,y(y+1))\cap \mathbb{N}$\\
+$\because ([y+1,y(y+1))\cap \mathbb{N})\cap([0,y) \cap \mathbb{N})=\emptyset$\\
+$\therefore$ There is at most one $\mathit{w}\in [0,y) \cap \mathbb{N}$ such that $\mathit{w}x\overset{mod\ y}{=}1$\\
+
+\section*{Problem 3}
+\[\begin{array}{rclr}
+m\% n &=&p &\quad\mbox{$p \in [0,n)$}\\
+m&=&k\cdot n +p &\quad\mbox{$k\in \mathbb{Z}$}\\
+&\because& m>n\\
+&\therefore& k\geq 1\\
+\end{array}\]
+Then transform the equation required to be proved.
+\[\begin{array}{rclr}
+\frac{3}{2}(n+(m\%n))&<&m+n\\
+\frac{3}{2}(n+p)&<&m+n\\
+\frac{3}{2}&<&\frac{m+n}{n+p}\\
+\frac{3}{2}&<&\frac{k\cdot n+p+n}{n+p}\\
+\frac{3}{2}&<&\frac{k\cdot n}{n+p}+1\\
+\frac{1}{2}&<&\frac{k\cdot n}{n+p}\\
+\frac{1}{2}&<&k\cdot \frac{n}{n+p}\\
+\end{array}\]
+It is obvious that the larger $p$ is, the smaller $k\cdot \frac{n}{n+p} is$.
+\[\begin{array}{rclr}
+\lim\limits_{p\to n}k\cdot \frac{n}{n+p}&<&k\cdot \frac{n}{n+p}\\
+k\cdot \frac{n}{n+n}&<&k\cdot \frac{n}{n+p}\\
+k\cdot \frac{n}{2\cdot n}&<&k\cdot \frac{n}{n+p}\\
+k\cdot \frac{1}{2}&<&k\cdot \frac{n}{n+p}\\
+\end{array}\]
+The minimum of $k\cdot \frac{1}{2}$ is $\frac{1}{2}$ where $k=1$\\ 
+Therefore, for all $m,n\in \mathbb{N}_{>0}$ with $n \leq m$, $\frac{3}{2}(n+(m\%n))<m+n$\\
+
+\section*{Problem 4}
+\subsection*{(a)}
+\[\begin{array}{rclr}
+	A \oplus  A&=& (A \cap  A^{c} ) \cup  (A^{c}  \cap  A) &\quad\mbox{(Definition of $\oplus$)}\\
+	&=& \emptyset  \cup  (A^{c}  \cap  A) &\quad\mbox{(Complement with $\cap$)}\\
+	&=& (A^{c}  \cap  A) \cup  \emptyset  &\quad\mbox{(Commutatitivity of $\cup$)}\\
+	&=& A^{c}  \cap  A &\quad\mbox{(Identity of $\cup$)}\\
+	&=& A \cap  A^{c}  &\quad\mbox{(Commutatitivity of $\cap$)}\\
+	&=& \emptyset  &\quad\mbox{(Complement with $\cap$)}
+\end{array}\]
+\subsection*{(b)}
+\[\begin{array}{rclr}
+    A \cup  \mathcal{U} &=& A \cup  (A \cup  A^{c} ) &\quad\mbox{(Complement with $\cup$)}\\
+    &=& (A \cup  A) \cup  A^{c}  &\quad\mbox{(Associativity of $\cup$)}\\
+    &=& A \cup  A^{c}  &\quad\mbox{(Idempotence of $\cup$)}\\
+    &=& \mathcal{U}  &\quad\mbox{(Complement with $\cup$)}
+\end{array}\]
+\subsection*{(c)}
+\[\begin{array}{rclr}
+    A \oplus  B&=& (A \cap  B^{c} ) \cup  (A^{c}  \cap  B) &\quad\mbox{(Definition of $\oplus$)}\\
+    &=& ((A \cap  B^{c} ) \cup  A^{c} ) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Distributivity of $\cup$ over $\cap$)}\\
+    &=& (A^{c}  \cup  (A \cap  B^{c} )) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Commutatitivity of $\cup$)}\\
+    &=& ((A^{c}  \cup  A) \cap  (A^{c}  \cup  B^{c} )) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Distributivity of $\cup$ over $\cap$)}\\
+    &=& ((A \cup  A^{c} ) \cap  (A^{c}  \cup  B^{c} )) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Commutatitivity of $\cup$)}\\
+    &=& (\mathcal{U}  \cap  (A^{c}  \cup  B^{c} )) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Complement with $\cup$)}\\
+    &=& ((A^{c}  \cup  B^{c} ) \cap  \mathcal{U} ) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Commutatitivity of $\cap$)}\\
+    &=& (A^{c}  \cup  B^{c} ) \cap  ((A \cap  B^{c} ) \cup  B) &\quad\mbox{(Identity of $\cap$)}\\
+    &=& (A^{c}  \cup  B^{c} ) \cap  (B \cup  (A \cap  B^{c} )) &\quad\mbox{(Commutatitivity of $\cup$)}\\
+    &=& (A^{c}  \cup  B^{c} ) \cap  ((B \cup  A) \cap  (B \cup  B^{c} )) &\quad\mbox{(Distributivity of $\cup$ over $\cap$)}\\
+    &=& (A^{c}  \cup  B^{c} ) \cap  ((B \cup  A) \cap  \mathcal{U} ) &\quad\mbox{(Complement with $\cup$)}\\
+    &=& (A^{c}  \cup  B^{c} ) \cap  (B \cup  A) &\quad\mbox{(Identity of $\cap$)}\\
+    &=& (B \cup  A) \cap  (A^{c}  \cup  B^{c} ) &\quad\mbox{(Commutatitivity of $\cap$)}\\
+    &=& (A \cup  B) \cap  (A^{c}  \cup  B^{c} ) &\quad\mbox{(Commutatitivity of $\cup$)}
+\end{array}\]
+\subsection*{(d)}
+According to uniqueness of complement, if$(A^{c}\cap B^{c})\cup (A\cup B)^{cc}=\mathcal{U}$, then $A^{c}\cap B^{c} =(A\cup B)^{c} $
+\[\begin{array}{rclr}
+(A^{c}\cap B^{c})\cup (A\cup B)^{cc} &=&(A^{c}\cap B^{c})\cup (A\cup B)&\quad\mbox{(Double complement)}\\
+&=& (A\cup B)\cup (A^{c}\cap B^{c})&\quad\mbox{(Commutatitivity of $\cup$)}\\
+&=&((A\cup B)\cup A^{c})\cap ((A\cup B)\cup B^{c})&\quad\mbox{(Distributivity of $\cup$ over $\cap$)}\\
+&=&(A^{c}\cup (A\cup B))\cap ((A\cup B)\cup B^{c})&\quad\mbox{(Commutatitivity of $\cup$)}\\
+&=&((A^{c}\cup A)\cup B)\cap ((A\cup B)\cup B^{c})&\quad\mbox{(Associativity of $\cup$)}\\
+&=&(\mathcal{U}\cup B)\cap ((A\cup B)\cup B^{c})&\quad\mbox{(Complement with $\cup$)}\\
+&=&(\mathcal{U}\cup B)\cap (A\cup (B\cup B^{c}))&\quad\mbox{(Associativity of $\cup$)}\\
+&=&(\mathcal{U}\cup B)\cap (A\cup \mathcal{U})&\quad\mbox{(Complement with $\cup$)}\\
+&=&(\mathcal{U}\cup B)\cap (\mathcal{U}\cup A)&\quad\mbox{(Commutatitivity of $\cup$)}\\
+&=&\mathcal{U}\cup(A \cap B)&\quad\mbox{(Distributivity of $\cup$ over $\cap$)}\\
+&=&(A \cap B)\cup \mathcal{U}&\quad\mbox{(Commutatitivity of $\cup$)}\\
+
+&=&\mathcal{U}&\quad\mbox{(Given in Problem 4(b))}\\
+
+&\because& (A^{c}\cap B^{c})\cup (A\cup B)^{cc}=\mathcal{U}\\
+&\therefore& (A^{c}\cap B^{c}) =(A\cup B)^{c}\\
+\end{array}\]
+
+\section*{Problem 5}
+\subsection*{(a)}
+Let $X=\{0, 01\}$,$Y=\{0,11\}$\\
+0111 is an element in $(X\cup Y)^{*} $ while it is not an element in $X^*\cup Y^*$\\
+Therefore, $(X\cup Y)^{*}=X^*\cup Y^*$ is false.\\
+\subsection*{(b)}
+Assume $X= \{\lambda \}$:\\
+\[\begin{array}{rlcr}
+\because& \mbox{For all set A,} XA=A\\
+\therefore& X(Y \cup Z)=Y\cup Z\\
+&(XY)\cup (XZ)=Y\cup Z\\
+\end{array}\]
+So $X(Y\cup Z)=(XY)\cup (XZ)$ hold for $X= \{\lambda \}$.\\
+\\
+Assume $X\neq \{\lambda \}$:\\
+
+The concatenation of set can be represented as $mn$ where $m$ is 1st segment of word and $n$ is 2nd segment.\\
+\[\begin{array}{rlcr}
+X(Y\cup Z)&=\{mn:m\in X \mbox{ and } n\in (Y\cup Z)\}\\
+&=\{mn:m\in X \mbox{ and } n\in Y  \mbox {or } n\in Z\}\\
+&=\{mn:m\in X \mbox{ and } n\in Y\}\cup\{mn:m\in X \mbox{ and } n\in Z\}\\
+&=(XY)\cup (XZ)\\
+\end{array}\]
+So $X(Y\cup Z)=(XY)\cup (XZ)$ hold for $X \neq \{\lambda \}$.\\
+Therefore, $X(Y\cup Z)=(XY)\cup (XZ)$ is true.\\
+\subsection*{(c)}
+$\because$Each word segment in $X(X)^{*}$ is from $X$.\\
+$\therefore X(X)^{*}\subseteq X^{*}$\\
+$\because$Let the 1st word segment pick from $X$ always be $\lambda$. Then $X(X)^{*}=X^{*}$\\
+$\therefore X^{*}\subseteq X(X)^{*}$\\
+$\because X(X)^{*}\subseteq X^{*}$ and $X^{*}\subseteq X(X)^{*}$\\
+$\therefore X(X)^{*}=X^{*}$\\
+Therefore, $X(X)^{*}=X^{*}$ is true.\\
+\section*{Problem 6}
+\subsection*{(a)}
+$\{0, 1\}^{\{a,b,c\}}$ has 8 elements:\\
+\[\begin{array}{rlcr}
+&\{(a,0),(b,0),(c,0)\}\\
+&\{(a,0),(b,0),(c,1)\}\\
+&\{(a,0),(b,1),(c,0)\}\\
+&\{(a,0),(b,1),(c,1)\}\\
+&\{(a,1),(b,0),(c,0)\}\\
+&\{(a,1),(b,0),(c,1)\}\\
+&\{(a,1),(b,1),(c,0)\}\\
+&\{(a,1),(b,1),(c,1)\}\\
+\end{array}\]
+\subsection*{(b)}
+$Pow(a,b,c)=\{\emptyset,\{a\},\{b\},\{c\},\{a,b\},\{a,c\},\{b,c\},\{a,b,c\}\}$\\
+$Pow(a,b,c)$ is the set of all possible relational pre-image of of $\{0\}$ and $\{1\}$ in $\mathit{f}$.
+\[\begin{array}{rlcr}
+&R^{\gets}(0)=\{a,b,c\}	&R^{\gets}(1)=\emptyset	&\mbox{for }\mathit{f}=\{(a,0),(b,0),(c,0)\}\\
+&R^{\gets}(0)=\{a,b\}	&R^{\gets}(1)=\{c\}		&\mbox{for }\mathit{f}=\{(a,0),(b,0),(c,1)\}\\
+&R^{\gets}(0)=\{a,c\}	&R^{\gets}(1)=\{b\}		&\mbox{for }\mathit{f}=\{(a,0),(b,1),(c,0)\}\\
+&R^{\gets}(0)=\{a\}		&R^{\gets}(1)=\{b,c\}	&\mbox{for }\mathit{f}=\{(a,0),(b,1),(c,1)\}\\
+&R^{\gets}(0)=\{b,c\}	&R^{\gets}(1)=\{a\}		&\mbox{for }\mathit{f}=\{(a,1),(b,0),(c,0)\}\\
+&R^{\gets}(0)=\{b\}		&R^{\gets}(1)=\{a,c\}	&\mbox{for }\mathit{f}=\{(a,1),(b,0),(c,1)\}\\
+&R^{\gets}(0)=\{c\}		&R^{\gets}(1)=\{a,b\}	&\mbox{for }\mathit{f}=\{(a,1),(b,1),(c,0)\}\\
+&R^{\gets}(0)=\emptyset	&R^{\gets}(1)=\{a,b,c\}	&\mbox{for }\mathit{f}=\{(a,1),(b,1),(c,1)\}\\
+\end{array}\]
+$\forall \mathit{f}, R^{\gets}(0),R^{\gets}(1) \subset Pow(a,b,c)$\\
+\subsection*{(c)}
+$\{\mathit{w}\in\{0,1\}^{*}:\mathrm{length}(\mathit{w})=3\}=\{000,001,010,011,100,101,110,111\}$\\
+$\{\mathit{w}\in\{0,1\}^{*}:\mathrm{length}(\mathit{w})=3\}$ is the set of all possible $\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)$.
+\[\begin{array}{rlcr}
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=000	&\mbox{for }\mathit{f}=\{(a,0),(b,0),(c,0)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=001	&\mbox{for }\mathit{f}=\{(a,0),(b,0),(c,1)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=010	&\mbox{for }\mathit{f}=\{(a,0),(b,1),(c,0)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=011	&\mbox{for }\mathit{f}=\{(a,0),(b,1),(c,1)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=100	&\mbox{for }\mathit{f}=\{(a,1),(b,0),(c,0)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=101	&\mbox{for }\mathit{f}=\{(a,1),(b,0),(c,1)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=110	&\mbox{for }\mathit{f}=\{(a,1),(b,1),(c,0)\}\\
+&\mathit{f}(a)\mathit{f}(b)\mathit{f}(c)=111	&\mbox{for }\mathit{f}=\{(a,1),(b,1),(c,1)\}\\
+\end{array}\]
+\section*{Problem 7}
+\[\begin{array}{rlcr}
+A^{B\times C}&=\{((b,c),a):a\in A \mbox{ and } b\in B \mbox{ and } c\in C\}\\
+\\
+(A^{B})^{C}	&=\{(b,a):a\in A \mbox{ and } b\in B\}^{C}\\
+			&=\{(c,(b,a)):a\in A \mbox{ and } b\in B \mbox{ and } c\in C\}\\
+\end{array}\]
+Let function $\mathit{f}((b,c),a)=(c,(b,a))$ and $\mathit{f}^{-1}(c,(b,a))=((b,c),a)$ where $a\in A$, $b \in B$ and $c \in C$.\\
+$\because$There exists a function $\mathit{f}$ and its inverse function $\mathit{f}^{-1}$ where $\mathit{f}:A^{B\times C} \to (A^{B})^{C}$ and $\mathit{f}^{-1}:(A^{B})^{C} \to A^{B\times C}$.\\ 
+$\therefore$ There is a bijection between $A^{B\times C}$ and $(A^{B})^{C}$.\\
+
+\section*{Problem 8}
+\subsection*{(a)}
+\[\begin{array}{rlcr}
+(R_{1};R_{2});R_{3}	&=\{(a,c):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1}\mbox{ and }(b,c)\in R_{2}\};R_{3}\\
+					&=\{(a,d):\mbox{ there is }a,c\mbox{ with }(a,c)\in R_{1};R_{2}\mbox{ and }(c,d)\in R_{3} \}\\
+					&=\{(a,d):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1},(b,c)\in R_{2}\mbox{ and }(c,d)\in R_{3}\}\\
+					&=\{(a,d):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1}\mbox{ and }(b,d)\in R_{2};R_{3} \}\\
+					&=R_{1};\{(b,d):\mbox{ there is }b,c\mbox{ with }(b,c)\in R_{2}\mbox{ and }(c,d)\in R_{3}\}\\
+					&=R_{1};(R_{2};R_{3})\\
+\end{array}\]
+\subsection*{(b)}
+\[\begin{array}{rlcr}
+\because I;R_{1}&=\{(a,b):\mbox{ there is }a\mbox{ with }(a,a)\in I\mbox{ and }(a,b)\in R_{1}\}\\
+				&=\{(a,b):\mbox{ there is }a\mbox{ with }(a,b)\in R_{1}\}\\
+\therefore I;R_{1}&=R_{1}\\
+\\
+\because R_{1};I&=\{(a,b):\mbox{ there is }a\mbox{ with }(a,b)\in R_{1}\mbox{ and }(b,b)\in I\}\\
+				&=\{(a,b):\mbox{ there is }a\mbox{ with }(a,b)\in R_{1}\}\\
+\therefore R_{1};I&=R_{1}\\
+\because R_{1};I&=R_{1}\mbox{ and }I;R_{1}=R_{1}\\
+\therefore I;R_{1}&=R_{1};I=R_{1}\\
+\end{array}\]
+\subsection*{(c)}
+Let $(a_{1},b_{1})\in R_{1}$, $(a_{2},b_{2})\in R_{2}$ and $(a,b)\in R_{1}\cup R_{2}$\\
+\[\begin{array}{rlcr}
+(R_{1}\cup R_{2});R_{3}	&=\{(a,c):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1}\cup R_{2}\mbox{ and }(b,c)\in R_{3}\}\\
+						
+\\
+(R_{1};R_{3})\cup (R_{2};R_{3})&=\{(a_{1},c):\mbox{ there is }a_{1},b_{1}\mbox{ with }(a_{1},b_{1})\in R_{1}\mbox{ and }(b_{1},c)\in R_{3}\}\cup\\
+						&\{(a_{2},c):\mbox{ there is }a_{2},b_{2}\mbox{ with }(a_{2},b_{2})\in R_{2}\mbox{ and }(b_{2},c)\in R_{3}\}\\
+
+\end{array}\]
+$\because\forall(a,b)\in  R_{1}\cup R_{2}$, there exist some $(a_{1},b_{1})\in R_{1}$ or $(a_{2},b_{2})\in R_{2}$ equal to $(a,b)$.\\
+$\therefore (R_{1}\cup R_{2});R_{3}\subseteq (R_{1};R_{3})\cup (R_{2};R_{3})$\\
+$\because\forall(a_{1},b_{1})\in R_{1}$ or $(a_{2},b_{2})\in R_{2}$, it $\in R_{1}\cup R_{2}$.\\
+$\therefore (R_{1};R_{3})\cup (R_{2};R_{3}) \subseteq (R_{1}\cup R_{2});R_{3}$\\
+$\because (R_{1};R_{3})\cup (R_{2};R_{3}) \subseteq (R_{1}\cup R_{2});R_{3}$ and $(R_{1}\cup R_{2});R_{3}\subseteq (R_{1};R_{3})\cup (R_{2};R_{3})$\\
+$\therefore (R_{1}\cup R_{2});R_{3}=(R_{1};R_{3})\cup (R_{2};R_{3})$\\
+
+
+\subsection*{(d)}
+Let $(a,b)\in R_{1}$, $(b_{2},c_{2})\in R_{2}$, $(b_{3},c_{3})\in R_{3}$ and $(b,c)\in R_{2}\cap R_{3}$\\
+
+\[\begin{array}{rlcr}
+
+(R_{1};R_{2})\cap(R_{1};R_{3})	&=\{(a,c_{2}):\mbox{ there is }a,b_{2}\mbox{ with }(a,b_{2})\in R_{1}\mbox{ and }(b_{2},c_{2})\in R_{2}\}\cap\\
+								&\{(a,c_{3}):\mbox{ there is }a,b_{3}\mbox{ with }(a,b_{3})\in R_{1}\mbox{ and }(b_{3},c_{3})\in R_{3}\}\\
+								&=\{(a,c_{2})\mbox{ or }(a,c_{3}):\mbox{ there is }a,b \mbox{ with }(a,b)\in R_{1},(b,c_2)\in R_{2}\mbox{ and } (b,c_2)\in R_{3}\mbox{ or }\\
+								&(b,c_{3})\in R_{3} \mbox{ and }(b,c_{3})\in R_{2}\}\\
+								&=\{(a,c):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1},(b,c)\in R_{2}\mbox{ and }(b,c)\in R_{3}\}\\
+								&=\{(a,c):\mbox{ there is }a,b\mbox{ with }(a,b)\in R_{1}\mbox{ and }(b,c)\in R_{2}\cap R_{3}\}\\
+								&=R_{1};(R_{2}\cap R_{3})\\
+\end{array}\]
+\end{document}
